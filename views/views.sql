@@ -1,5 +1,4 @@
--- Total of sales by coffee type
-CREATE VIEW sales_by_coffee AS
+CREATE OR REPLACE VIEW sales_by_coffee AS
 SELECT
     coffee_name,
     COUNT(*) AS total_sales,
@@ -7,4 +6,3 @@ SELECT
 FROM staging_coffee_sales
 GROUP BY coffee_name;
 
-SELECT * FROM sales_by_coffee;

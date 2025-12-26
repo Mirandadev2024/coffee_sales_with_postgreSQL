@@ -40,13 +40,20 @@ After running the project you will end up with a csv table demonstrating total s
 
 ### Step 1 — Create the database (required once)
 
+Add psql to path
+
 Run the database creation script:
 
 ```bash
 psql -U postgres -d postgres -f infra/create_database.sql
 
-### Step 2 — Deploy the schema, data and analytics by running the orchestration script:
+Enter the password defined during postgreSQL installation
 
+### Step 2 — Deploy the schema, data and analytics by running the orchestration script:
+Before running the script, modify load_data.sql and analytics.sql to reference absolute paths where
+postgreSQL has authorization to read and wirete from.
+
+```bash
 
 psql -U postgres -d coffee_sales -f run_all.sql
 
@@ -57,9 +64,9 @@ create tables
 
 load the CSV data (ETL)
 
-create views (optional)
+create views (optional, if you chose to work with pgAdmin)
 
-execute analytical queries
+execute a sample analytical query and save it to a csv file
 
 
 Notes
@@ -69,7 +76,7 @@ If necessary, adjust the path to Coffee_sales.csv (data/raw/Coffee_sales.csv) in
 All steps are reproducible using version-controlled SQL scripts.
 
 Project structure:
-.
+
 ├── infra/
 │   └── create_database.sql
 ├── schemas/
@@ -80,18 +87,12 @@ Project structure:
 │   └── views.sql
 ├── queries/
 │   └── analytics.sql
+├── results/
+│   └── .gitkeep
 ├── data/
 │   └── raw/
 │       └── coffee_sales.csv
 └── run_all.sql
 
-### Using the Makefile
 
-Alternatively, the project can be started using the provided `Makefile`, which automates the database setup and execution steps.
 
-Make sure you have `make` installed and that the PostgreSQL client (`psql`) is available in your system path.
-
-From the project root directory, run:
-
-```bash
-make all
